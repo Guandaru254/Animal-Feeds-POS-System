@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Feeds POS</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #D3D3D3;
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            z-index: 1000;
+            transition: width 0.5s ease; /* Add transition effect */
+        }
+        .navbar ul {
+            list-style-type: none;
+            padding-left: 0;
+            color : #A9A9A9;
+        }
+        .navbar li {
+            margin-bottom: 10px;
+            color : #A9A9A9;
+        }
+        .navbar a {
+            display: block;
+            padding: 10px;
+            color: #fff;
+            text-decoration: none;
+            color : #000000;
+        }
+        .navbar a:hover {
+            background-color: #ffffff;
+
+        }
+        .navbar h3 {
+            margin-left : 30px;
+            margin-bottom : 30px;
+            color : #A9A9A9;
+            font-size: 25px;
+        }
+        .content {
+            margin-left: 200px; /* Adjust based on navbar width */
+            padding: 20px;
+            transition: margin-left 0.5s ease; /* Add transition effect */
+        }
+        .content.minimized {
+            margin-left: 50px; /* Adjust based on minimized navbar width */
+        }
+        .icon {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .submenu {
+            display: none;
+            padding-left: 20px;
+            background-color : #0096FF; 
+            border-radius : 0px;
+        }
+        .submenu.active {
+            display: block;
+        }
+        .submenu li a {
+            color: #000000;
+        }
+        .submenu li a hover {
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <i class="icon fas fa-bars" onclick="toggleNavbar()"></i>
+        <h3>HURU POS</h3>
+        <ul>
+            <li><a href="#" onclick="toggleSubMenu('dashboard')">Setup</a>
+                <ul class="submenu" id="submenu-dashboard">
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Raw Materials</a></li>
+                    <li><a href="#">Clients</a></li>
+                    <li><a href="#">Accounts Set-up</a></li>
+                    <li><a href="#">Product Categories</a></li>
+                    <li><a href="#">Product Sub Categories</a></li>
+                    <li><a href="#">Daily Cash Transactions Sheet</a></li>
+                    <li><a href="#">Sales Points</a></li>
+                    <li><a href="#">System Parameters</a></li>
+                    <li><a href="#">System Users</a></li>
+                  </ul>
+            </li>
+            <li><a href="#" onclick="toggleSubMenu('pos')">Point Of Sale</a>
+                <ul class="submenu" id="submenu-pos">
+                    <li><a href="#">New Sale</a></li>
+                    <li><a href="#">Print Receipts</a></li>
+                    <li><a href="#">Refund/Return</a></li>
+                  </ul>
+            </li>
+            <li><a href="#" onclick="toggleSubMenu('branches')">Branches</a>
+                <ul class="submenu" id="submenu-branches">
+                    <li><a href="#">View Branches</a></li>
+                    <li><a href="#">Branch Reports</a></li>
+                  </ul>
+            </li>
+            <li><a href="#" onclick="toggleSubMenu('clients')">Clients</a>
+                <ul class="submenu" id="submenu-clients">
+                    <li><a href="{% url 'clients' %}">Clients Info</a></li>
+                    <li><a href="#">New Client</a></li>
+                    <li><a href="#">Loyalty Programs</a></li>
+                    <li><a href="#">Purchase History</a></li>
+                  </ul>
+            </li>
+            <li><a href="#" onclick="toggleSubMenu('products')">Products</a>
+                <ul class="submenu" id="submenu-products">
+                  <li><a href="#">View Inventory</a></li>
+                  <li><a href="#">Manage Stock Levels</a></li>
+                  <li><a href="#">Product Categories</a></li>
+                  <li><a href="#">Stock Transfer</a></li>
+                </ul>
+          </li>
+            <li><a href="#" onclick="toggleSubMenu('sales')">Sales </a>
+               <ul class="submenu" id="submenu-sales">
+                 <li><a href="#">Quotations</a></li>
+                 <li><a href="#">Invoices</a></li>
+                 <li><a href="#">Payments Received</a></li>
+                 <li><a href="#">Credit Notes</a></li>
+               </ul>
+            </li>
+            <li><a href="#">Accounts</a></li>
+            <li><a href="#" onclick="toggleSubMenu('reports')">Reports</a>
+                <ul class="submenu" id="submenu-reports">
+                    <li><a href="#">Sales</a></li>
+                    <li><a href="#">Inventory Reports</a></li>
+                    <li><a href="#">Customer Reports</a></li>
+                  </ul>
+            </li>
+            <li><a href="#" onclick="toggleSubMenu('settings')">Settings</a>
+                <ul class="submenu" id="submenu-settings">
+                    <li><a href="#">Organization</a></li>
+                    <li><a href="#">Appearance</a></li>
+                    <li><a href="#">Backup</a></li>
+                  </ul>
+            </li>
+            <li><a href="#">Help & Support</a></li>
+            <li><a href="#">FAQs</a></li>
+            <!-- Add submenus here if needed -->
+        </ul>
+        <i class="icon fas fa-bars" onclick="toggleNavbar()"></i>
+    </div>
+    <div class="content" id+"content">
+        <!-- Main content goes here -->
+        <h1>Welcome to HURU POS</h1>
+        <p>This is the homepage of your POS system. Use the sidebar navigation to access different features.</p>
+    </div>
+    <script>
+        // Function to toggle navbar between minimized and maximized state
+        function toggleNavbar() {
+            var navbar = document.getElementById("navbar");
+            var content = document.getElementById("content");
+            navbar.classList.toggle("minimized");
+            content.classList.toggle("minimized");
+        }
+
+         // Function to toggle submenu visibility
+         function toggleSubMenu(menuId) {
+            var submenu = document.getElementById("submenu-" + menuId);
+            submenu.classList.toggle("active");
+        }
+
+
+    </script>
+</body>
+</html>
