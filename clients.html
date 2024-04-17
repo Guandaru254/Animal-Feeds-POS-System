@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clients Information - Animal Feeds POS</title>
+    <!-- Include CSS stylesheets here -->
+</head>
+<body>
+    <h1>Clients Information</h1>
+    <!-- Table to display detailed client information -->
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+            <tr>
+                <td>{{ client.name }}</td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.phoneno }}</td>
+                <td>{{ client.address }}</td>
+                <td class="button-container">
+                    <!--
+                    <form method="post" action="{% url 'clients' client.pk %}">
+                        {% csrf_token %}
+                        <button type="submit">Edit</button>
+                    </form>
+                    <form method="post" action="{% url 'client_delete' client.pk %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                    -->
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Add forms or buttons for CRUD operations -->
+    <!-- Example: Add New Client button -->
+    <button onclick="showAddClientForm()">Add New Client</button>
+
+    <!-- Include JavaScript scripts here -->
+    <script>
+        function toggleSubMenu(menuId) {
+            var submenu = document.getElementById("submenu-" + menuId);
+            submenu.classList.toggle("active");
+            if (menuId === 'clients') {
+                window.location.href = 'clients/';
+            }
+        }
+    </script>
+</body>
+</html>
